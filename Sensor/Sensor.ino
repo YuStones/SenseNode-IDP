@@ -202,8 +202,6 @@ void setup() {
 
 void loop() {
     if(digitalRead(WAKEUP_GPIO)){
-        // Stop scanning
-        NimBLEDevice::getScan()->stop();
         powerDown(0);
     }
 }
