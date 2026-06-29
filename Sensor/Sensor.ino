@@ -60,22 +60,18 @@ void powerState(){
       if(!power){
         // Turn back on
         Serial.print("Power up, ");
-        Serial.println("back to sleep for " + String(TIME_TO_SLEEP) + " Seconds"); 
-        esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
         power = true;
       }else {
         // Turn off
-        power = false;
         Serial.println("Power down");
+        power = false;
         powerDown(0);
       }
     break;
 
-    case ESP_SLEEP_WAKEUP_TIMER:   Serial.println("Wakeup caused by timer"); 
+    case ESP_SLEEP_WAKEUP_TIMER:    
       // Keep waking up
-      esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
-      Serial.println("Back to sleep for " + String(TIME_TO_SLEEP) + " Seconds"); 
-      power = true;
+      Serial.println("Wakeup caused by timer");
     break;
 
     case ESP_SLEEP_WAKEUP_ULP:     Serial.println("Wakeup caused by ULP"); 
@@ -89,6 +85,9 @@ void powerState(){
     default: Serial.printf("Wakeup was not caused by deep sleep: %d\n", wakeup_reason); 
     break;
   }
+
+  Serial.println("back to sleep for " + String(TIME_TO_SLEEP) + " Seconds"); 
+  esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
 
   // Active high power button
   esp_deep_sleep_enable_gpio_wakeup(1ULL << WAKEUP_GPIO, ESP_GPIO_WAKEUP_GPIO_HIGH);
