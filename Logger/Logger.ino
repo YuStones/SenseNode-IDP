@@ -152,6 +152,10 @@ void powerState(){
         default: Serial.printf("Wakeup was not caused by deep sleep: %d\n", wakeup_reason); break;
     }
 
+    // Keep waking up
+    esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR);
+    Serial.println("Back to sleep for " + String(TIME_TO_SLEEP) + " Seconds"); 
+
     // Active high power button
     esp_sleep_enable_ext1_wakeup_io(1ULL << WAKEUP_GPIO, ESP_EXT1_WAKEUP_ANY_HIGH);
 
