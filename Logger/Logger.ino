@@ -140,7 +140,6 @@ void powerState(){
         case ESP_SLEEP_WAKEUP_TIMER:   Serial.println("Wakeup caused by timer"); 
             // Keep waking up
             Serial.println("Return from sleep"); 
-            power = true;
         break;
 
         case ESP_SLEEP_WAKEUP_ULP:     Serial.println("Wakeup caused by ULP"); break;
