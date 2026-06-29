@@ -66,7 +66,6 @@ void powerDown(int reason){
         // Internal pulldown
         gpio_pullup_dis(WAKEUP_GPIO);
         gpio_pulldown_en(WAKEUP_GPIO);
-        power = false;
     }
 
     esp_deep_sleep_start();
@@ -132,6 +131,7 @@ void powerState(){
                 power = true;
             }else {
                 // Turn off
+                power = false;
                 powerDown(0);
             }
         break;
