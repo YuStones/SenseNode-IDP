@@ -59,6 +59,13 @@ void powerDown(int reason){
 
         // Turn display off
         u8g2.setPowerSave(1);
+
+        // Active high power button
+        esp_deep_sleep_enable_gpio_wakeup(1ULL << WAKEUP_GPIO, ESP_GPIO_WAKEUP_GPIO_HIGH);
+    
+        // Internal pulldown
+        gpio_pullup_dis(WAKEUP_GPIO);
+        gpio_pulldown_en(WAKEUP_GPIO);
         power = false;
     }
 
