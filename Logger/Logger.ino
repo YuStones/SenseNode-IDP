@@ -62,18 +62,6 @@ void powerDown(int reason){
         power = false;
     }
 
-    // Active high power button
-    esp_sleep_enable_ext1_wakeup_io(1ULL << WAKEUP_GPIO, ESP_EXT1_WAKEUP_ANY_HIGH);
-
-    // Internal pulldown
-    gpio_pullup_dis(WAKEUP_GPIO);
-    gpio_pulldown_en(WAKEUP_GPIO);
-
-    if(power){
-        Serial.println("Back to sleep for " + String(TIME_TO_SLEEP) + " Seconds");
-        esp_sleep_enable_timer_wakeup(TIME_TO_SLEEP * uS_TO_S_FACTOR); 
-    }
-
     esp_deep_sleep_start();
 }
 
